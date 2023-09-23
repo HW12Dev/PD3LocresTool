@@ -21,8 +21,9 @@ namespace PD3LocresTool
 		}
 		static string source = @"D:\software\FModel\Output\Exports\PAYDAY3\Content\Localization\Game\en\Game.locres";
 		static void savetojson()
-		{
-			var locres = new LocresFile();
+        {
+            Console.WriteLine("Creating json from " + source);
+            var locres = new LocresFile();
 
 			using (var file = File.OpenRead(source))
 			{
@@ -42,8 +43,9 @@ namespace PD3LocresTool
 			File.WriteAllText("./locres.json", JsonConvert.SerializeObject(final));
 		}
 		static void writefromjson()
-		{
-			var output = new LocresFile();
+        {
+            Console.WriteLine("Creating locres from " + source);
+            var output = new LocresFile();
 			using (var file = File.OpenRead(source))
 			{
 				output.Load(file);
@@ -73,7 +75,13 @@ namespace PD3LocresTool
 		static void Main(string[] args)
 		{
 			if (args.Length == 0) {
-				Console.WriteLine("Usage: PD3LocresTool -tojson/-tolocres");
+				Console.WriteLine("Usage: PD3LocresTool -tojson/-tolocres path\\to\\Game.locres");
+				Console.WriteLine();
+                Console.WriteLine("Example: PD3LocresTool -tojson C:\\pakfiles\\Game.locres");
+                return;
+			}
+			if(args.Length == 2) {
+				source = args[1];
 			}
 			switch(args[0])
 			{
